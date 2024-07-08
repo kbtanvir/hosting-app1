@@ -1,7 +1,4 @@
-# Use the official PostgreSQL image from Docker Hub
 FROM postgres:13-alpine
-
-
 
 # Copy the initialization scripts
 COPY init.sql /docker-entrypoint-initdb.d/

@@ -1,10 +1,10 @@
-import process from "node:process";
-import rateLimit from "express-rate-limit";
+import consola from "consola";
 import cors from "cors";
 import express from "express";
-import consola from "consola";
-import "./utils/env";
+import rateLimit from "express-rate-limit";
+import process from "node:process";
 import routes from "./routes";
+import "./utils/env";
 
 const { PORT } = process.env;
 

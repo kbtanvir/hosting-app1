@@ -1,0 +1,25 @@
+PORT=3000
+API_BASE_URL=http://localhost:3000
+
+# postgres database url
+DB_URL=postgres://postgres:postgres@0.0.0.0:5433/static_web_hosting
+
+# ses access keys
+AWS_ACCESS_KEY=your_aws_access_key
+AWS_SECRET_ACCESS_KEY=your_aws_secret_access_key
+AWS_REGION=us-west-2
+
+# email config
+FROM_NAME="Your Name"
+FROM_EMAIL=your_email@example.com
+
+# jwt secret
+JWT_SECRET=your_jwt_secret
+
+
+MINIO_ENDPOINT=http://localhost:9001
+MINIO_ROOT_USER=your_username
+MINIO_ROOT_PASSWORD=your_pasword
+MINIO_DEFAULT_BUCKETS=your_bucket_name
+
+ 

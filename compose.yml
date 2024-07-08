@@ -21,18 +21,18 @@ services:
     image: postgres:13-alpine
     restart: always
     env_file:
-      - db/.env 
+      - db/.env
     volumes:
       - pijmo_hosting_db:/var/lib/postgresql/data
     ports:
-      - "5432:5432"
-    healthcheck:      
-      test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB} -t 1"]
+      - "5433:5432"
+    healthcheck:
+      test:
+        ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB} -t 1"]
       interval: 10s
       timeout: 10s
       retries: 10
       start_period: 10s
- 
 
   server:
     container_name: server
@@ -42,11 +42,10 @@ services:
     ports:
       - 5000:5000
     volumes:
-      - ./server:/usr/src/app # Mount local directory to avoid rebuilding for code changes
+      - ./server:/usr/src/app
       - ./sites/html:/sites/html
     depends_on:
       - db
- 
 
   nginx:
     container_name: nginx
@@ -60,7 +59,6 @@ services:
 
     depends_on:
       - server
- 
 
 volumes:
   pijmo_hosting_db:
