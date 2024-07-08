@@ -1,27 +1,23 @@
-FROM python:3.9-slim
+# pull official base image
+FROM python:3.11.3-slim-buster
 
+RUN apt-get -q -y update 
+RUN apt-get install -y gcc
 
-# Set the working directory inside the container
-WORKDIR /app
-
-# Set environment variables
-
+# set environment variables
 ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
-ENV FLASK_ENV=development
-ENV FLASK_APP="app.py"
 
+# set work directory
+WORKDIR /usr/src/app
+COPY . /usr/src/app/
 
-# Install dependencies
-COPY requirements.txt .
-
+# install system dependencies
+RUN apt-get update && apt-get install -y netcat
+# RUN pip install --upgrade pip
+# COPY ./requirements.txt /usr/src/app/requirements.txt
 RUN pip install -r requirements.txt
 
-# Copy the Flask application code into the container
-COPY . .
-
-# Expose the Flask port
-EXPOSE 5000
-
-# Command to run the Flask application
-CMD [ "python", "app.py"]
+RUN chmod +x service_entrypoint.sh
+# run entrypoint.sh
+ENTRYPOINT ["/usr/src/app/service_entrypoint.sh"]
