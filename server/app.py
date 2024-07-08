@@ -5,7 +5,7 @@ import os
 app = Flask(__name__)
 
 # Configuration
-UPLOAD_FOLDER = '../sites/html/'
+UPLOAD_FOLDER = '/sites/html/'
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 

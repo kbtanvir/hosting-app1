@@ -73,8 +73,9 @@ services:
     build: ./server
     ports:
       - 5000:5000
-    # volumes:
-    #   - ./server:/app  # Mount local directory to avoid rebuilding for code changes
+    volumes:
+      - ./server/app.py:/app.py  # Mount local directory to avoid rebuilding for code changes
+      - ./sites/html:/sites/html
 
   nginx:
     container_name: nginx
