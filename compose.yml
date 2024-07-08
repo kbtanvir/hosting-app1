@@ -70,16 +70,11 @@ services:
 
   server:
     container_name: server
-    build:
-      context: ./server
-      dockerfile: Dockerfile
-    command: ["python", "app.py"]
+    build: ./server
     ports:
       - 5000:5000
-    volumes:
-      - ./app:/app  # Mount local directory to avoid rebuilding for code changes
-    environment:
-      - FLASK_ENV=development
+    # volumes:
+    #   - ./server:/app  # Mount local directory to avoid rebuilding for code changes
 
   nginx:
     container_name: nginx
@@ -91,8 +86,8 @@ services:
     ports:
       - 80:80
 
-    # depends_on:
-    #   - minio
+    depends_on:
+      - server
 
 volumes:
   # pijmo_hosting_db:

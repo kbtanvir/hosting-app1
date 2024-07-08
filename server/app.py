@@ -1,17 +1,17 @@
-from flask import Flask, request, render_template_string, redirect, url_for
+from flask import Flask, request, render_template, redirect, url_for
 from werkzeug.utils import secure_filename
 import os
 
 app = Flask(__name__)
 
 # Configuration
-UPLOAD_FOLDER = 'sites/html/'
+UPLOAD_FOLDER = '../sites/html/'
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 
 @app.route('/')
 def index():
-    return 'Welcome to the HTML file uploader!'
+    return render_template('index.html')
 
 
 @app.route('/upload', methods=['GET', 'POST'])
@@ -36,17 +36,8 @@ def upload_file():
 
             return f'File uploaded successfully for subdomain: {subdomain}'
 
-    return '''
-    <!doctype html>
-    <title>Upload new HTML file</title>
-    <h1>Upload new HTML file</h1>
-    <form method=post enctype=multipart/form-data>
-      <p><input type=text name=subdomain placeholder="Subdomain"></p>
-      <p><input type=file name=file>
-         <input type=submit value=Upload>
-    </form>
-    '''
+    return render_template('upload.html')
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(host='0.0.0.0', port=5000, debug=True)
