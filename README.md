@@ -1,4 +1,4 @@
-# Project Name
+# Simple hosting solution
 
 Simple hosting solution, storing static files on minio bucket, serving to browser with nginx
 
