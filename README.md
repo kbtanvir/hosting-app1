@@ -48,7 +48,7 @@ Simple hosting solution, storing static files on minio bucket, serving to browse
    docker-compose up -d --build
    ```
 
-   This command will build and start all services defined in `docker-compose.yml`, including MinIO, PostgreSQL, Express.js backend, NGINX, etc.
+   This command will build and start all services defined in `docker-compose.yml`, including MinIO, PostgreSQL, server, NGINX, etc.
 
 4. **Accessing Services:**
 
