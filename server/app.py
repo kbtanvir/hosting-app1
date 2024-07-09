@@ -12,7 +12,8 @@ app = Flask(__name__)
 # Configuration
 UPLOAD_FOLDER = '/sites/html/'
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
-app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv("DB_URL" , "sqlite://") 
+# app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv("DB_URL" , "sqlite://") 
+app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv("DB_URL" ) 
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 migrate = Migrate(app, db)
