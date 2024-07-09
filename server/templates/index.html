@@ -8,11 +8,47 @@
       href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
       rel="stylesheet"
     />
+    <script>
+      // Function to handle form submission
+      function handleFormSubmit(event) {
+        event.preventDefault(); // Prevents the default form submission
+
+        // Get form data
+        const formData = new FormData(event.target);
+
+        // Send form data to the server via fetch
+        fetch(event.target.action, {
+          method: "POST",
+          body: formData,
+        })
+          .then(response => response.text())
+          .then(result => {
+            console.log("Success:", result);
+            window.location.reload(false);
+            // Optionally, handle success (e.g., show a success message or update the UI)
+          })
+          .catch(error => {
+            console.error("Error:", error);
+            // Optionally, handle error (e.g., show an error message)
+          });
+      }
+
+      // Add event listener to the form when the DOM is fully loaded
+      document.addEventListener("DOMContentLoaded", () => {
+        const form = document.querySelector("form");
+        form.addEventListener("submit", handleFormSubmit);
+      });
+    </script>
   </head>
   <body class="bg-gray-100 p-6">
-    <div class="max-w-2xl mx-auto bg-white p-8 shadow-lg rounded-lg">
+    <div class="max-w-3xl mx-auto bg-white p-8 shadow-lg rounded-lg">
       <h1 class="text-2xl font-bold mb-4">Upload HTML File</h1>
-      <form method="POST" enctype="multipart/form-data" class="space-y-4">
+      <form
+        method="POST"
+        enctype="multipart/form-data"
+        class="space-y-4"
+        action="/"
+      >
         <div>
           <label class="block text-sm font-medium text-gray-700"
             >Username</label
@@ -63,6 +99,14 @@
         </button>
       </form>
       <h2 class="text-xl font-bold mt-8">Subdomains</h2>
+      <form method="POST" action="/delete_all">
+        <button
+          type="submit"
+          class="w-full bg-red-500 text-white py-2 px-4 rounded-md shadow-md hover:bg-red-600 focus:outline-none mt-4"
+        >
+          Delete All Users
+        </button>
+      </form>
       <table class="min-w-full mt-4 bg-white border border-gray-300 rounded-lg">
         <thead>
           <tr>
@@ -86,6 +130,11 @@
             >
               Status
             </th>
+            <th
+              class="px-6 py-3 border-b border-gray-300 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+            >
+              Actions
+            </th>
           </tr>
         </thead>
         <tbody>
@@ -100,12 +149,22 @@
             <td
               class="px-6 py-4 whitespace-nowrap border-b border-gray-300 text-blue-400"
             >
-              <a href="http://{{ user.subdomain }}.localhost">
+              <a target="_blank" href="http://{{ user.subdomain }}.localhost">
                 {{ user.subdomain }}.localhost</a
               >
             </td>
             <td class="px-6 py-4 whitespace-nowrap border-b border-gray-300">
               {{ user.status }}
+            </td>
+            <td class="px-6 py-4 whitespace-nowrap border-b border-gray-300">
+              <form method="POST" action="/delete/{{ user.id }}">
+                <button
+                  type="submit"
+                  class="bg-red-500 text-white py-1 px-3 rounded-md shadow-md hover:bg-red-600 focus:outline-none"
+                >
+                  Delete
+                </button>
+              </form>
             </td>
           </tr>
           {% endfor %}
