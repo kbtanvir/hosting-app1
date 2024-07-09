@@ -52,8 +52,7 @@ Simple hosting solution, storing static files on minio bucket, serving to browse
 
 4. **Accessing Services:**
 
-   - **Backend API:** Available at `http://localhost:5000`
-   - **Frontend App:** Once built, should be accessible through NGINX at `http://localhost`
+   - **Admin panel:** Available at `http://localhost:5000`
    - **MinIO:** Access MinIO UI at `http://localhost:9000` (login with `MINIO_ROOT_USER` and `MINIO_ROOT_PASSWORD`)
 
 5. **Stopping the Application:**
