@@ -4,7 +4,7 @@ Simple hosting solution, storing static files on minio bucket, serving to browse
 
 ## Technologies Used
 
-- **Backend**: Express.js with TypeScript, PostgreSQL
+- **Backend**: Flask, PostgreSQL, SQLAlchemy
 - **Frontend**: Tailwind CSS, Django
 - **Storage**: MinIO
 - **Proxy Server**: NGINX
