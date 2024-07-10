@@ -1,38 +1,53 @@
 
-GET http://localhost:3000/
+GET http://localhost:8080/
+content-type: application/json
+# Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzNjA5NmQ1MWVkNDNjMmFiYWI1MDVhZSIsInR5cGUiOiJhY2Nlc3NfdG9rZW4iLCJpYXQiOjE2NzU2NjAwNTksImV4cCI6MTY3NTY2MDA4OX0.A26YVPgTX74rZXECsqA92lWACkBrCyCHemxvJzufFzI
+
+
+### findAll
+
+GET http://localhost:8080/users
 content-type: application/json
 # Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzNjA5NmQ1MWVkNDNjMmFiYWI1MDVhZSIsInR5cGUiOiJhY2Nlc3NfdG9rZW4iLCJpYXQiOjE2NzU2NjAwNTksImV4cCI6MTY3NTY2MDA4OX0.A26YVPgTX74rZXECsqA92lWACkBrCyCHemxvJzufFzI
 
 
 ###
 
-GET http://localhost:3000/api/user
-content-type: application/json
-# Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzNjA5NmQ1MWVkNDNjMmFiYWI1MDVhZSIsInR5cGUiOiJhY2Nlc3NfdG9rZW4iLCJpYXQiOjE2NzU2NjAwNTksImV4cCI6MTY3NTY2MDA4OX0.A26YVPgTX74rZXECsqA92lWACkBrCyCHemxvJzufFzI
-
-
-###
-
-GET http://localhost:3000/api/user/7d4b967e-9db1-4227-8fea-894f55bb5aa7
+GET http://localhost:8080/api/user/7d4b967e-9db1-4227-8fea-894f55bb5aa7
 content-type: application/json
 # Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzNjA5NmQ1MWVkNDNjMmFiYWI1MDVhZSIsInR5cGUiOiJhY2Nlc3NfdG9rZW4iLCJpYXQiOjE2NzU2NjAwNTksImV4cCI6MTY3NTY2MDA4OX0.A26YVPgTX74rZXECsqA92lWACkBrCyCHemxvJzufFzI
 
 
 
-###
+### create
 
-POST http://localhost:3000/api/user
+POST http://localhost:8080/users
 content-type: application/json
 # Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjE2NjAwMzc5IiwiZW1haWwiOiJqb2hzZGZuQGdtYWlsLmNvbSIsImZpcnN0TmFtZSI6IkpvaG4iLCJsYXN0TmFtZSI6IlNtaXRoIiwidHlwZSI6ImFjY2Vzc190b2tlbiIsImlhdCI6MTY2MDAzODAwMywiZXhwIjoxNjYwMDM4MDMzfQ.59Y8IEMMJ5M_2mHpsGe0JqBN-XZ7DG4TnxHakqYH5aw
 
 {
-    "name" : "Bob",
-    "email" : "bob@gmail.com",
-    "subdomain" : "apple"
+    "username" : "gran",
+    "email" : "gran@gmail.com",
+    "subdomain" : "orange"
+
+}
+### create account
+
+POST http://localhost:8080/users
+content-type: application/json
+# Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjE2NjAwMzc5IiwiZW1haWwiOiJqb2hzZGZuQGdtYWlsLmNvbSIsImZpcnN0TmFtZSI6IkpvaG4iLCJsYXN0TmFtZSI6IlNtaXRoIiwidHlwZSI6ImFjY2Vzc190b2tlbiIsImlhdCI6MTY2MDAzODAwMywiZXhwIjoxNjYwMDM4MDMzfQ.59Y8IEMMJ5M_2mHpsGe0JqBN-XZ7DG4TnxHakqYH5aw
+
+{
+    "email": "mike@mail.com",
+    "firstName": "Mike",
+    "lastName": "Brown",
+    "currency": "USD",
+    "balance": 100
+
 }
 ###
 
-PUT http://localhost:3000/api/user
+PUT http://localhost:8080/api/user
 content-type: application/json
 # Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjE2NjAwMzc5IiwiZW1haWwiOiJqb2hzZGZuQGdtYWlsLmNvbSIsImZpcnN0TmFtZSI6IkpvaG4iLCJsYXN0TmFtZSI6IlNtaXRoIiwidHlwZSI6ImFjY2Vzc190b2tlbiIsImlhdCI6MTY2MDAzODAwMywiZXhwIjoxNjYwMDM4MDMzfQ.59Y8IEMMJ5M_2mHpsGe0JqBN-XZ7DG4TnxHakqYH5aw
 
@@ -42,7 +57,7 @@ content-type: application/json
 }
 ###
 
-DELETE http://localhost:3000/api/user
+DELETE http://localhost:8080/api/user
 content-type: application/json
 # Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjE2NjAwMzc5IiwiZW1haWwiOiJqb2hzZGZuQGdtYWlsLmNvbSIsImZpcnN0TmFtZSI6IkpvaG4iLCJsYXN0TmFtZSI6IlNtaXRoIiwidHlwZSI6ImFjY2Vzc190b2tlbiIsImlhdCI6MTY2MDAzODAwMywiZXhwIjoxNjYwMDM4MDMzfQ.59Y8IEMMJ5M_2mHpsGe0JqBN-XZ7DG4TnxHakqYH5aw
 
