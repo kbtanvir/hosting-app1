@@ -1,28 +1,26 @@
-# pull official base image
-FROM python:3.11.3-slim-buster
+# Use the official Node.js 18 image as the base image
+FROM node:20.11.0
 
-RUN apt-get -q -y update 
-# RUN apt-get install -y gcc netcat
-# RUN apt-get install -y netcat
+# Set the working directory
+WORKDIR /app
 
-# set environment variables
-ENV PYTHONDONTWRITEBYTECODE 1
-ENV PYTHONUNBUFFERED 1
-ENV FLASK_APP=app.py
-
-# set work directory
-WORKDIR /usr/src/app/
 COPY . .
 
- 
-# RUN pip install --upgrade pip
+# Install pnpm
+RUN npm install -g pnpm
 
-RUN pip install -r requirements.txt
+# Copy package.json and pnpm-lock.yaml
+COPY package.json pnpm-lock.yaml ./
+
+# Install dependencies using pnpm
+RUN pnpm install
 
 
+# Copy the rest of the application code
 
-CMD ["python", "app.py"]
 
-# RUN chmod +x service_entrypoint.sh
-# run entrypoint.sh
-# ENTRYPOINT ["/usr/src/app/service_entrypoint.sh"]
+# Expose the port that your app runs on
+EXPOSE 8080
+
+# Start the application
+CMD ["pnpm", "dev"]
