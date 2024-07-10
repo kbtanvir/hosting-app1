@@ -63,26 +63,36 @@ services:
       - db
     # networks:
     #   - webnet
-
-  nginx:
-    container_name: nginx
-    build: ./nginx
-    volumes:
-      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
-      - ./nginx/hosts:/etc/hosts
-      - ./sites/html:/usr/share/nginx/html
-    ports:
-      - 80:80
-    depends_on:
-      - server
-      - minio
+  # server-express:
+  #   build:
+  #     context: ./server-express
+  #     dockerfile: Dockerfile
+  #   ports:
+  #     - "3000:3000"
+  #   volumes:
+  #     - ./server-express:/app
+  #   env_file:
+  #     - server-express/.env # Path to db/.env file
+  #   depends_on:
+  #     - db
+  # nginx:
+  #   container_name: nginx
+  #   build: ./nginx
+  #   volumes:
+  #     - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+  #     - ./nginx/hosts:/etc/hosts
+  #     - ./sites/html:/usr/share/nginx/html
+  #   ports:
+  #     - 80:80
+  #   depends_on:
+  #     - server
+  #     - minio
     # networks:
     #   - webnet
 
 volumes:
   pijmo_hosting_db:
   minio-data:
-
 # networks:
 #   webnet:
 #     driver: bridge

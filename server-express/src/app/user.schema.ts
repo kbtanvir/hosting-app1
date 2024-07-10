@@ -3,7 +3,7 @@ import { pgTable, text, timestamp, uuid, varchar } from 'drizzle-orm/pg-core';
 import { createSelectSchema } from 'drizzle-zod';
 import { z } from 'zod';
 
-export const users = pgTable('users', {
+export const users = pgTable('sites', {
   id: uuid('id').notNull().primaryKey().defaultRandom(),
   name: varchar('name', { length: 255 }).notNull(),
   email: text('email').notNull().unique(),

@@ -1,10 +1,10 @@
 import consola from 'consola'
-import { createHandler } from '../utils/create'
+import { createHandler as createController } from '../utils/create'
 import { BackendError } from '../utils/errors'
 import { type User, deleteUserSchema, getOneSchema, newUserSchema, updateUserSchema } from './user.schema'
 import { addUser, deleteUser, getAllUser, getUserByEmail, getUserByUserId, updateUser } from './user.service'
 
-export const handleAddUser = createHandler(newUserSchema, async (req, res) => {
+export const handleAddUser = createController(newUserSchema, async (req, res) => {
   const user = req.body
 
   const existingUser = await getUserByEmail(user.email)
@@ -20,7 +20,7 @@ export const handleAddUser = createHandler(newUserSchema, async (req, res) => {
   res.status(201).json(addedUser)
 })
 
-export const handleGetOneUser = createHandler(getOneSchema, async (req, res) => {
+export const handleGetOneUser = createController(getOneSchema, async (req, res) => {
   const id = req.params.id
  
   const user = await getUserByUserId(id as string)
@@ -29,7 +29,7 @@ export const handleGetOneUser = createHandler(getOneSchema, async (req, res) => 
     user,
   })
 })
-export const handleDeleteUser = createHandler(deleteUserSchema, async (req, res) => {
+export const handleDeleteUser = createController(deleteUserSchema, async (req, res) => {
   const { email } = req.body
 
   const deletedUser = await deleteUser(email)
@@ -39,7 +39,7 @@ export const handleDeleteUser = createHandler(deleteUserSchema, async (req, res)
   })
 })
 
-export const handleGetUser = createHandler(async (_req, res) => {
+export const handleGetUser = createController(async (_req, res) => {
   const { user } = res.locals as { user: User }
 
   res.status(200).json({
@@ -50,7 +50,7 @@ export const handleGetUser = createHandler(async (_req, res) => {
     },
   })
 })
-export const handleGetAllUser = createHandler(async (_req, res) => {
+export const handleGetAllUser = createController(async (_req, res) => {
   const dto = await getAllUser()
 
   res.status(200).json({
@@ -58,7 +58,7 @@ export const handleGetAllUser = createHandler(async (_req, res) => {
   })
 })
 
-export const handleUpdateUser = createHandler(updateUserSchema, async (req, res) => {
+export const handleUpdateUser = createController(updateUserSchema, async (req, res) => {
   const { name, email } = req.body
 
   const updatedUser = await updateUser({ name, email })

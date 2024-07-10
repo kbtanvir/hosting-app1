@@ -1,7 +1,8 @@
 import type { Router } from 'express'
+import userRouter from './app/user.router'
 import { createRouter } from './utils/create'
-import userRouter from './user/user.router'
 
 export default createRouter((router: Router) => {
   router.use('/user', userRouter)
+  // router.use('/site', siteRouter)
 })

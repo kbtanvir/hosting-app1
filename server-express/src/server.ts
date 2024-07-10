@@ -1,8 +1,7 @@
+import process from "node:process";
 import consola from "consola";
 import cors from "cors";
 import express from "express";
-import rateLimit from "express-rate-limit";
-import process from "node:process";
 import routes from "./routes";
 import "./utils/env";
 
@@ -12,19 +11,7 @@ const app = express();
 
 app.use(express.json());
 app.use(cors());
-// app.use(requestIp());
-app.use(
-  rateLimit({
-    windowMs: 15 * 60 * 1000,
-    max: 100,
-    handler: (req, res) => {
-      consola.warn(`DDoS Attempt from ${req.ip}`);
-      res.status(429).json({
-        error: "Too many requests in a short time. Please try in a minute.",
-      });
-    },
-  })
-);
+
 
 app.get("/", (_req, res) => {
   res.json({
