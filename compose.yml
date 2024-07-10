@@ -49,28 +49,28 @@ services:
       start_period: 10s
 
 
-  server:
-    container_name: server
-    build: ./server
-    env_file:
-      - server/.env # Path to db/.env file
-    ports:
-      - 5000:5000
-    volumes:
-      - ./server:/usr/src/app
-      - ./sites/html:/sites/html
-    depends_on:
-      - db
+  # server:
+  #   container_name: server
+  #   build: ./server
+  #   env_file:
+  #     - server/.env # Path to db/.env file
+  #   ports:
+  #     - 5000:5000
+  #   volumes:
+  #     - ./server:/usr/src/app
+  #     - ./sites/html:/sites/html
+  #   depends_on:
+  #     - db
 
   
-  server-express:
-    build: ./server-express
+  server-express-no-zod:
+    build: ./server-express-no-zod
     ports:
-      - "3000:3000"
+      - "8080:8080"
     volumes:
-      - ./server-express:/app
+      - ./server-express-no-zod:/app
     env_file:
-      - server-express/.env # Path to db/.env file
+      - server-express-no-zod/.env # Path to db/.env file
     depends_on:
       - db
 
@@ -84,7 +84,7 @@ services:
     ports:
       - 80:80
     depends_on:
-      - server
+      - server-express-no-zod
       - minio
 
 
