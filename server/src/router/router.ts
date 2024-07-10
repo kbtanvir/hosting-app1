@@ -8,12 +8,12 @@ import multer from "multer";
 const router = Router();
 const upload = multer();
 
-
 router.get("/", (_: Request, res: Response) => {
   res.sendFile(path.join("public", "index.html"));
 });
 
 // BUSINESS
+
 router.post("/accounts", AccountController.createAccount);
 router.get("/accounts", AccountController.findAllAccounts);
 router.get("/accounts/:id", AccountController.getOneAccountById);
@@ -27,11 +27,12 @@ router.get("/users/:id", UserController.getOneAccountById);
 router.delete("/users", UserController.deleteAllUsers);
 router.delete("/users/:userId", UserController.deleteUser);
 
+// FILES
+
+router.post("/upload", upload.single("file"), UserController.uploadFile);
+
 // MONITORING
 
 router.get("/health", HealthController.health);
-
-// FILES
-router.post("/upload", upload.single("file"), UserController.uploadFile);
 
 export default router;

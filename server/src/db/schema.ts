@@ -14,8 +14,8 @@ export const accountTable = pgTable("account", {
 
 export const userTable = pgTable("user", {
   id: uuid("id").notNull().primaryKey().defaultRandom(),
-  username: varchar("username", { length: 80 }).notNull().unique(),
-  email: text("email").notNull().unique(),
+  username: varchar("username", { length: 80 }).notNull(),
+  email: text("email").notNull(),
   subdomain: varchar("subdomain", { length: 120 }).notNull().unique(),
   status: statusEnum("status").notNull().default("active"),
   createdAt: timestamp("created_at").notNull().defaultNow(),

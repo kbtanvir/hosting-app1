@@ -31,25 +31,29 @@ export class UserController {
     const file = req.file;
 
     if (username && email && subdomain && file) {
+    
       const filename = file.originalname;
       const objectName = `${subdomain}/${filename}`;
       const fileStream = Readable.from(file.buffer);
-
+      await UserService.create({ username, email, subdomain, status: "active" });
       await minioClient.putObject(MINIO_BUCKET_NAME!, objectName, fileStream, file.size, {
         "Content-Type": "text/html",
       });
-
+      
       if (filename.toLowerCase() === "index.html") {
+        console.log("hello before meniou");
         await minioClient.putObject(MINIO_BUCKET_NAME!, `${subdomain}/index.html`, fileStream, file.size, {
           "Content-Type": "text/html",
         });
       }
+      console.log('hello after meniou')
 
-      await UserService.create({ username, email, subdomain, status: "active" });
+      
       res.status(201).json({ message: "File uploaded successfully" });
     } else {
       res.status(400).json({ message: "Invalid input" });
     }
+    res.status(400).json({ message: "Invalid input" });
   }
 
   static async deleteAllUsers(req: Request, res: Response) {

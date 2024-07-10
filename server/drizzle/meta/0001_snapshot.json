@@ -1,6 +1,6 @@
 {
-  "id": "8cb777e7-9d83-4cae-be3b-597908f4afb6",
-  "prevId": "00000000-0000-0000-0000-000000000000",
+  "id": "60edaea4-5324-4d22-a671-67f36f69a5e7",
+  "prevId": "8cb777e7-9d83-4cae-be3b-597908f4afb6",
   "version": "5",
   "dialect": "pg",
   "tables": {
@@ -107,20 +107,6 @@
       "foreignKeys": {},
       "compositePrimaryKeys": {},
       "uniqueConstraints": {
-        "user_username_unique": {
-          "name": "user_username_unique",
-          "nullsNotDistinct": false,
-          "columns": [
-            "username"
-          ]
-        },
-        "user_email_unique": {
-          "name": "user_email_unique",
-          "nullsNotDistinct": false,
-          "columns": [
-            "email"
-          ]
-        },
         "user_subdomain_unique": {
           "name": "user_subdomain_unique",
           "nullsNotDistinct": false,

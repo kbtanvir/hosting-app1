@@ -5,24 +5,24 @@ import { userTable } from "../db/schema.js";
 
 export const create = async (input: UserModel): Promise<User | { message: string }> => {
 
-  const [subdomainExist] = await db().select().from(userTable).where(eq(userTable.subdomain, input.subdomain));
+  // const [subdomainExist] = await db().select().from(userTable).where(eq(userTable.subdomain, input.subdomain));
 
-  if (subdomainExist) {
-    return { message: "subdomain already exist" };
-  }
+  // if (subdomainExist) {
+  //   return { message: "subdomain already exist" };
+  // }
 
-  const [usernameExist] = await db().select().from(userTable).where(eq(userTable.username, input.username));
+  // const [usernameExist] = await db().select().from(userTable).where(eq(userTable.username, input.username));
 
-  if (usernameExist) {
-    return { message: "username already exist" };
-  }
+  // if (usernameExist) {
+  //   return { message: "username already exist" };
+  // }
 
   const [emailExist] = await db().select().from(userTable).where(eq(userTable.email, input.email));
 
   if (emailExist) {
     return { message: "email already exist" };
   }
-
+  console.log(input)
   // Insert the new user
   const results = await db().insert(userTable).values(input).returning();
 
