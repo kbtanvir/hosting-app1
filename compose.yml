@@ -70,7 +70,17 @@ services:
       - 80:80
     depends_on:
       - minio
-
+  client:
+    container_name: todo-app-client
+    build:
+      context: ./client
+      dockerfile: Dockerfile
+    env_file:
+      - client/.env
+    ports:
+      - "3000:80"
+    depends_on:
+      - server
 
 volumes:
   pijmo_hosting_db:

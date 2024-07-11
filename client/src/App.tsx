@@ -12,9 +12,9 @@ export default function App() {
 
   useEffect(() => {
     fetchUsers();
-  }, [users.length]);
+  }, []);
 
-  const fetchUsers = () => {
+  function fetchUsers() {
     axios
       .get("http://localhost:8080/users")
       .then(response => {
@@ -24,9 +24,9 @@ export default function App() {
       .catch(error => {
         console.error("Error fetching users:", error);
       });
-  };
+  }
 
-  const handleFormSubmit = async event => {
+  async function handleFormSubmit(event) {
     event.preventDefault();
 
     const form = new FormData();
@@ -38,21 +38,22 @@ export default function App() {
     try {
       const response = await axios.post("http://localhost:8080/upload", form);
       console.log("Upload Success:", response.data);
-      fetchUsers(); // Refresh users after upload
+       fetchUsers();
     } catch (error) {
-      console.error("Upload Error:", error);
+ 
+      window.alert(error.response.data.message);
     }
-  };
+  }
 
-  const handleInputChange = event => {
+  function handleInputChange(event) {
     setFormData({ ...formData, [event.target.name]: event.target.value });
-  };
+  }
 
-  const handleFileChange = event => {
+  function handleFileChange(event) {
     setFormData({ ...formData, file: event.target.files[0] });
-  };
+  }
 
-  const deleteUser = async userId => {
+  async function deleteUser(userId: any) {
     if (window.confirm("Are you sure you want to delete this user?")) {
       try {
         await axios.delete(`http://localhost:8080/users/${userId}`);
@@ -61,18 +62,18 @@ export default function App() {
         console.error("Delete Error:", error);
       }
     }
-  };
+  }
 
-  const deleteAllUsers = async () => {
+  async function deleteAllUsers() {
     if (window.confirm("Are you sure you want to delete all users?")) {
       try {
-        await axios.delete("/users");
+        await axios.delete("http://localhost:8080/users");
         fetchUsers(); // Refresh users after delete all
       } catch (error) {
         console.error("Delete All Error:", error);
       }
     }
-  };
+  }
 
   // return(<>hello</>)
 

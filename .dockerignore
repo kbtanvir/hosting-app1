@@ -2,3 +2,4 @@
 .venv
 Dockerfile
 node_modules
+drizzle

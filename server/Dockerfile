@@ -8,9 +8,11 @@ COPY . .
 
 # Install pnpm
 RUN npm install -g pnpm
+RUN npm install -g drizzle-kit
+RUN npm install -g ts-node
 
 # Copy package.json and pnpm-lock.yaml
-COPY package.json pnpm-lock.yaml ./
+COPY package.json ./
 
 # Install dependencies using pnpm
 RUN pnpm install

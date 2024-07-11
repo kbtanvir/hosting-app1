@@ -3,6 +3,7 @@ import * as UserService from "../service/user-service.js";
 
 import { Readable } from "stream";
 import { minioClient, MINIO_BUCKET_NAME } from "../config/minio-client.js";
+import { User } from "../api/user.js";
 
 export class UserController {
   static async create(req: Request, res: Response) {
@@ -27,33 +28,43 @@ export class UserController {
   }
 
   static async uploadFile(req: Request, res: Response) {
-    const { username, email, subdomain } = req.body;
-    const file = req.file;
+    try {
+      const { username, email, subdomain } = req.body;
+      const file = req.file;
 
-    if (username && email && subdomain && file) {
-    
+      if (!username || !email || !subdomain || !file) {
+        return res.status(400).json({ message: "Invalid input" });
+      }
+
       const filename = file.originalname;
       const objectName = `${subdomain}/${filename}`;
       const fileStream = Readable.from(file.buffer);
-      await UserService.create({ username, email, subdomain, status: "active" });
-      await minioClient.putObject(MINIO_BUCKET_NAME!, objectName, fileStream, file.size, {
-        "Content-Type": "text/html",
-      });
-      
-      if (filename.toLowerCase() === "index.html") {
-        console.log("hello before meniou");
-        await minioClient.putObject(MINIO_BUCKET_NAME!, `${subdomain}/index.html`, fileStream, file.size, {
+      let newuser: User;
+      try {
+        newuser = await UserService.create({ username, email, subdomain, status: "active" });
+      } catch (error) {
+        return res.status(400).json({ message: "Subdomain exists" });
+      }
+
+      try {
+        await minioClient.putObject(MINIO_BUCKET_NAME!, objectName, fileStream, file.size, {
           "Content-Type": "text/html",
         });
-      }
-      console.log('hello after meniou')
 
-      
-      res.status(201).json({ message: "File uploaded successfully" });
-    } else {
-      res.status(400).json({ message: "Invalid input" });
+        if (filename.toLowerCase() === "index.html") {
+          const indexFileStream = Readable.from(file.buffer); // Create a new stream for the second upload
+          await minioClient.putObject(MINIO_BUCKET_NAME!, `${subdomain}/index.html`, indexFileStream, file.size, {
+            "Content-Type": "text/html",
+          });
+        }
+
+        res.status(201).json({ message: "File uploaded successfully", data: newuser });
+      } catch (error) {
+        res.status(500).json({ message: "Error uploading file to MinIO", error });
+      }
+    } catch (error) {
+      res.status(500).json({ message: "Internal server error", error });
     }
-    res.status(400).json({ message: "Invalid input" });
   }
 
   static async deleteAllUsers(req: Request, res: Response) {
