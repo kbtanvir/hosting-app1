@@ -1,8 +1,19 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 
+export interface UserModel {
+  email: string;
+  username: string;
+  subdomain: string;
+  status: "active" | "blocked";
+}
+
+export interface User extends UserModel {
+  id: any;
+}
+
 export default function App() {
-  const [users, setUsers] = useState([]);
+  const [users, setUsers] = useState<User[]>([]);
   const [formData, setFormData] = useState({
     username: "",
     email: "",
@@ -26,7 +37,7 @@ export default function App() {
       });
   }
 
-  async function handleFormSubmit(event) {
+  async function handleFormSubmit(event: any) {
     event.preventDefault();
 
     const form = new FormData();
@@ -38,18 +49,17 @@ export default function App() {
     try {
       const response = await axios.post("http://localhost:8080/upload", form);
       console.log("Upload Success:", response.data);
-       fetchUsers();
-    } catch (error) {
- 
+      fetchUsers();
+    } catch (error: any) {
       window.alert(error.response.data.message);
     }
   }
 
-  function handleInputChange(event) {
+  function handleInputChange(event: any) {
     setFormData({ ...formData, [event.target.name]: event.target.value });
   }
 
-  function handleFileChange(event) {
+  function handleFileChange(event: any) {
     setFormData({ ...formData, file: event.target.files[0] });
   }
 

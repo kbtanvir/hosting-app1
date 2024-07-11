@@ -1,28 +1,24 @@
-# Use the official Node.js 18 image as the base image
-FROM node:20.11.0
+# Use the official Node.js 20 image as the base image
+FROM node:20.15
 
-# Set the working directory
-WORKDIR /app
+WORKDIR /usr/src/app
+COPY package*.json ./
 
-COPY . .
+# installing netcat for checking that mysql server is up before trying to connect to it
+# RUN apt-get update 
+# RUN apt-get install -y netcat-openbsd 
+RUN npm install -g pnpm 
+ 
 
-# Install pnpm
-RUN npm install -g pnpm
-RUN npm install -g drizzle-kit
-RUN npm install -g ts-node
-
-# Copy package.json and pnpm-lock.yaml
-COPY package.json ./
-
-# Install dependencies using pnpm
+# RUN npm install ts-node 
 RUN pnpm install
 
+# copy the rest of the files into
+# the working directory /usr/src/app
+COPY . .
 
-# Copy the rest of the application code
+# RUN pnpm build
 
-
-# Expose the port that your app runs on
 EXPOSE 8080
 
-# Start the application
-CMD ["pnpm", "dev"]
+CMD ["pnpm", "dev:migrate"]

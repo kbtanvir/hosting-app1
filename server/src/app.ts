@@ -8,7 +8,7 @@ const app = express();
 
 const corsOptions = {
   origin: "http://localhost:3000", // Replace with your React app's URL in production
-  methods: ["GET", "POST", "DELETE"], // Add other HTTP methods as needed
+  methods: ["GET", "POST", "DELETE", "PUT"], // Add other HTTP methods as needed
   allowedHeaders: ["Content-Type"],
 };
 

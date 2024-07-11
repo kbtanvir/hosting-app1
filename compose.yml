@@ -52,8 +52,8 @@ services:
     build: ./server
     ports:
       - "8080:8080"
-    volumes:
-      - ./server:/app
+    # volumes:
+    #   - ./server:/usr/src/app
     env_file:
       - server/.env 
     depends_on:
@@ -70,6 +70,7 @@ services:
       - 80:80
     depends_on:
       - minio
+
   client:
     container_name: todo-app-client
     build:
@@ -79,8 +80,8 @@ services:
       - client/.env
     ports:
       - "3000:80"
-    depends_on:
-      - server
+    # depends_on:
+    #   - server
 
 volumes:
   pijmo_hosting_db:

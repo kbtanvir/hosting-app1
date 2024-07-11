@@ -1,14 +1,15 @@
 import { Client as MinioClient } from "minio";
 import config from "../config/config.js";
 
-const MINIO_ENDPOINT = config().MINIO_ENDPOINT;
+const MINIO_HOST = config().MINIO_HOST;
+const MINIO_SERVER_PORT = config().MINIO_SERVER_PORT;
 const MINIO_ACCESS_KEY = config().MINIO_ROOT_USER;
 const MINIO_SECRET_KEY = config().MINIO_ROOT_PASSWORD;
 const MINIO_BUCKET_NAME = config().MINIO_BUCKET_NAME;
 
 const minioClient = new MinioClient({
-  endPoint: "localhost",
-  port: 9000,
+  endPoint: MINIO_HOST,
+  port: MINIO_SERVER_PORT,
   accessKey: MINIO_ACCESS_KEY,
   secretKey: MINIO_SECRET_KEY,
   useSSL: false,
