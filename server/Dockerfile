@@ -1,5 +1,5 @@
 # Use the official Node.js 20 image as the base image
-FROM node:20.15
+FROM node:20.15-alpine
 
 WORKDIR /usr/src/app
 COPY package*.json ./
