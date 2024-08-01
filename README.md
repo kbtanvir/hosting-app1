@@ -21,8 +21,8 @@ Simple hosting solution, storing static files on minio bucket, serving to browse
 1. **Clone the repository:**
 
    ```bash
-   git clone <repository-url>
-   cd <project-directory>
+   git clone https://github.com/static-run/hosting.git
+   cd hosting
    ```
 
 2. **Set Up Environment Variables:**
